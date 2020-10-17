@@ -1,3 +1,6 @@
+# Dev log
+* Initialized project using ```npx create-react-app react-type-script-learning --template typescript```. This template adds the following dependencies: ```typescript @types/node @types/react @types/react-dom @types/jest```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
