@@ -1,5 +1,6 @@
 # Dev log
 * Initialized project using ```npx create-react-app react-type-script-learning --template typescript```. This template adds the following dependencies: ```typescript @types/node @types/react @types/react-dom @types/jest```
+* Instaled eslint/prettier for react & typescript according to [this article](https://medium.com/@brygrill/create-react-app-with-typescript-eslint-prettier-and-github-actions-f3ce6a571c97).
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
