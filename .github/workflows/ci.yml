@@ -1,25 +1,36 @@
-name: CI
-
-on: [push]
+name: Continuous Integration
+on:
+  push:
+    branches:
+      - "*"
 
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-18.04
+  continuous-integration:
+    runs-on: ubuntu-latest
     strategy:
-      matrix:
-        node-version: [14]
+      fail-fast: true
 
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node_version }}
+      - uses: actions/checkout@v2
+
+      - name: Setup Node 12.x
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node_version }}
+          node-version: 12.x
 
-      - name: run CI
-        run: |
-          yarn install
-          yarn lint
-          yarn build
-          yarn test
+      - name: Cache node_modules
+        id: cache
+        uses: actions/cache@master
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.OS }}-${{ hashFiles('yarn.lock') }}
+
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
+
+      - name: Unit Tests
+        working-directory: ${{ matrix.package }}
+        run: yarn test --colors
